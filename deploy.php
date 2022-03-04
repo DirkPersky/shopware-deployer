@@ -14,6 +14,7 @@ host('production')
     ->set('deploy_path', "/home/www/{$mittwaldProjectID}/html/shopware-deploy") // This is the path, where deployer will create its directory structure
     ->set('writable_mode', 'chmod');
 
+
 set('application', 'Shopware 6');
 set('allow_anonymous_stats', false);
 set('default_timeout', 3600); // Increase the `default_timeout`, if needed, when tasks take longer than the limit.
@@ -89,6 +90,9 @@ task('sw:plugin:update:all', static function () {
 task('sw:writable:jwt', static function () {
     run('cd {{release_path}} && chmod -R 660 config/jwt/*');
 });
+task('sw:storefront:build:clean', static function () {
+    run('cd {{release_path}} && rm config/packages/storefront.yml');
+});
 
 function getPlugins(): array
 {
@@ -149,7 +153,7 @@ task('sw-unit-test', static function () {
     // TODO implement unit test
     runLocally('php vendor/bin/phpunit');
 });
-task('sw-first-install', static function () {
+task('sw:first:install', static function () {
     run('cd {{release_path}} && php bin/console assets:install');
 });
 
@@ -185,6 +189,7 @@ task('deploy', [
     'deploy:clear_paths',
     'sw:cache:warmup',
     'sw:writable:jwt',
+    'sw:storefront:build:clean',
     'deploy:symlink',
     'deploy:unlock',
     'cleanup',
@@ -199,7 +204,8 @@ task('install', [
     'deploy:shared',
     'deploy:writable',
     'deploy:clear_paths',
-    'sw-first-install',
+    'sw:first:install',
+    'sw:storefront:build:clean',
     'deploy:symlink',
     'deploy:unlock',
     'cleanup',
