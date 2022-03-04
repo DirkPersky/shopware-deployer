@@ -40,9 +40,9 @@ set('writable_dirs', [
 /**
  * Hosts Konfiguration
  */
-host('p593040.mittwaldserver.info')
+host('###SERVER_HOST###')
     ->stage('production')
-    ->user('p593040')
+    ->user('###SSH_USER###')
     ->set('deploy_path', '/html/shopware-deploy') // This is the path, where deployer will create its directory structure
     ->set('writable_mode', 'chmod');
 
