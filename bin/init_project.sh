@@ -16,7 +16,7 @@ git remote add origin $gitname
 git remote add upstream git@github.com:shopware/production.git
 echo -e "${green}\u2714${reset} check Shopware"
 git fetch upstream --quiet
-read -p "${yellow}?${reset} Welche Shopware Version soll verwendet werden?: " gitbranch
+read -p "${yellow}?${reset} Welche Shopware Version soll verwendet werden (6.4)?: " gitbranch
 echo -e "${green}\u2714${reset} Merge Shopware Version"
 git merge -X theirs upstream/$gitbranch --allow-unrelated-histories --quiet
 echo -e "${green}\u2714${reset} Merge abgeschlossen!"
@@ -29,7 +29,7 @@ read -p "${yellow}?${reset} SSH USER: " sshusername
 read -p "${yellow}?${reset} SS HOST: " sshhost
 mkdir -p var/ssh/
 ssh-keygen -t rsa -b 4096 -f var/ssh/ssh_remote
-#ssh-copy-id -i var/ssh/ssh_remote.pub $sshusername@$sshhost
+ssh-copy-id -i var/ssh/ssh_remote.pub $sshusername@$sshhost
 rm var/ssh/ssh_remote.pub
 
 echo -e "${green}\u2714${reset} SSH verbunden"
@@ -37,7 +37,7 @@ echo -e "${green}---------------------------------${reset}"
 echo -e "${green}\u2714${reset} Projekt angelegt"
 
 echo -e "${green}---------------------------------${reset}"
-echo -e "${green}\u2714${reset} Publisch got .GIT"
+echo -e "${green}\u2714${reset} Publisch to .GIT"
 rm -rf .git
 git init --quiet
 git add --all
@@ -53,4 +53,7 @@ git push -u origin main --force
 echo -e "${green}---------------------------------${reset}"
 echo -e "${yellow}!!! Bitte legen Sie SECRETS GIT an !!!${reset}"
 echo -e "${yellow}!!! DEPLOYMENT_SERVER:  ${sshhost}!!!${reset}"
-echo -e "${yellow}!!! SSH_PRIVATE_KEY:  cat >> ssh_remote!!!${reset}"
+echo -e "${yellow}!!! SSH_PRIVATE_KEY:  cat >> var/ssh/ssh_remote!!!${reset}"
+echo -e "${green}---------------------------------${reset}"
+
+
