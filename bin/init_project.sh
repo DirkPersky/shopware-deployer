@@ -11,6 +11,7 @@ echo -e "${green}\u2714${reset} .GIT-Repos werden verknüpft"
 rm -rf .git
 git init
 git add --all
+rm .gitignore
 git remote add origin $gitname
 git remote add upstream git@github.com:shopware/production.git
 echo -e "${green}\u2714${reset} check Shopware"
@@ -19,13 +20,7 @@ read -p "${yellow}?${reset} Welche Shopware Version soll verwendet werden?: " gi
 echo -e "${green}\u2714${reset} Merge Shopware Version"
 git merge -X theirs upstream/$gitbranch --allow-unrelated-histories
 echo -e "${green}\u2714${reset} Merge abgeschlossen!"
-git add --all
-echo -e "${green}\u2714${reset} Commit .git"
-git commit -m "Project Start"
 git branch -M main
-echo -e "${green}\u2714${reset} upload zum .GIT-Repo"
-#add new origin
-git push -u origin main --force
 echo -e "${green}\u2714${reset} Projekt angelegt"
 
 echo -e "${green}---------------------------------${reset}"
@@ -42,5 +37,3 @@ echo -e "${green}---------------------------------${reset}"
 echo -e "${yellow}!!! Bitte legen Sie SECRETS GIT an !!!${reset}"
 echo -e "${yellow}!!! DEPLOYMENT_SERVER:  ${sshhost}!!!${reset}"
 echo -e "${yellow}!!! SSH_PRIVATE_KEY:  cat >> ssh_remote!!!${reset}"
-
-
