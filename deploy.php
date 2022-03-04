@@ -3,6 +3,16 @@
 namespace Deployer;
 require_once 'recipe/common.php';
 
+/**
+ * Hosts Konfiguration
+ */
+host('###SERVER_HOST###')
+    ->stage('production')
+    ->user('###SSH_USER###')
+    ->set('deploy_path', '/html/shopware-deploy') // This is the path, where deployer will create its directory structure
+    ->set('writable_mode', 'chmod');
+
+
 set('application', 'Shopware 6');
 set('allow_anonymous_stats', false);
 set('default_timeout', 3600); // Increase the `default_timeout`, if needed, when tasks take longer than the limit.
@@ -36,15 +46,6 @@ set('writable_dirs', [
     'public/thumbnail',
     'var',
 ]);
-
-/**
- * Hosts Konfiguration
- */
-host('###SERVER_HOST###')
-    ->stage('production')
-    ->user('###SSH_USER###')
-    ->set('deploy_path', '/html/shopware-deploy') // This is the path, where deployer will create its directory structure
-    ->set('writable_mode', 'chmod');
 
 /**
  * uploads the whole workspace to the target server
