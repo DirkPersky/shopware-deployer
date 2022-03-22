@@ -91,7 +91,7 @@ task('sw:writable:jwt', static function () {
     run('cd {{release_path}} && chmod -R 660 config/jwt/*');
 });
 task('sw:storefront:build:clean', static function () {
-    run('cd {{release_path}} && rm config/packages/storefront.yml');
+    run('cd {{release_path}} && rm config/packages/storefront.yaml');
 });
 
 function getPlugins(): array
