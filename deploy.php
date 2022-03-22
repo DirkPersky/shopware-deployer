@@ -22,6 +22,7 @@ set('default_timeout', 3600); // Increase the `default_timeout`, if needed, when
 // For more information, please visit the Deployer docs: https://deployer.org/docs/configuration.html#shared_files
 set('shared_files', [
     '.env',
+    'public/.htaccess',
 ]);
 // For more information, please visit the Deployer docs: https://deployer.org/docs/configuration.html#shared_dirs
 set('shared_dirs', [
@@ -138,6 +139,8 @@ task('sw-build-without-db:get-remote-config', static function () {
         download('{{deploy_path}}/current/var/plugins.json', './var/');
 
         run('php bin/console theme:dump');
+        download('{{deploy_path}}/current/var/theme-files.json', './var/');
+        download('{{deploy_path}}/current/var/theme-variables.scss', './var/');
         download('{{deploy_path}}/current/files/theme-config', './files/');
 
         // Temporary workaround to remove absolute file paths in Shopware <6.4.6.0
